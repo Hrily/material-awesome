@@ -6,33 +6,29 @@ local clickable_container = require('widgets.clickable-container')
 local icons = require('theme.icons')
 local watch = require('awful.widget.watch')
 local spawn = require('awful.spawn')
+local beautiful = require('beautiful')
+local dpi = require('beautiful').xresources.apply_dpi
 
 local slider =
-  wibox.widget {
-  read_only = false,
-  widget = mat_slider
+wibox.widget {
+  font = beautiful.font_reg .. ' 8',
+  align = 'left',
+  valign = 'center',
+  forced_height = 48,
+  widget = wibox.widget.textbox
 }
 
-slider:connect_signal(
-  'property::value',
-  function()
-    spawn('xbacklight -set ' .. math.max(slider.value, 5))
-  end
-)
-
 watch(
-  [[bash -c "xbacklight -get"]],
+  [[date]],
   1,
   function(widget, stdout, stderr, exitreason, exitcode)
-    local brightness = string.match(stdout, '(%d+)')
-
-    slider:set_value(tonumber(brightness))
+    slider:set_markup(stdout)
   end
 )
 
 local icon =
   wibox.widget {
-  image = icons.brightness,
+  image = icons.date,
   widget = wibox.widget.imagebox
 }
 
@@ -42,11 +38,11 @@ button.bottom = 12
 button.left = 12
 button.right = 12
 
-local brightness_setting =
+local date_info =
   wibox.widget {
   button,
-  slider,
+  wibox.container.margin(slider, dpi(0), dpi(0), dpi(12), dpi(0)),
   widget = mat_list_item
 }
 
-return brightness_setting
+return date_info

@@ -14,20 +14,22 @@ local globalKeys =
     {altkey, 'Control'},
     'l',
     function()
-      os.execute('xlock')
+      awful.util.spawn_with_shell ('dm-tool lock')
     end,
     {description = 'lock screen', group = 'hotkeys'}
   ),
   -- Hotkeys
   awful.key({modkey}, 'F1', hotkeys_popup.show_help, {description = 'show help', group = 'awesome'}),
   -- Tag browsing
-  awful.key({modkey}, 'w', awful.tag.viewprev, {description = 'view previous', group = 'tag'}),
-  awful.key({modkey}, 's', awful.tag.viewnext, {description = 'view next', group = 'tag'}),
+  awful.key({modkey}, 'Up', viewprev_nonempty_tag, {description = 'view previous', group = 'tag'}),
+  awful.key({altkey, 'Control'}, 'Right', viewprev_nonempty_tag, {description = 'view previous', group = 'tag'}),
+  awful.key({modkey}, 'Down', viewnext_nonempty_tag, {description = 'view next', group = 'tag'}),
+  awful.key({altkey, 'Control'}, 'Left', viewnext_nonempty_tag, {description = 'view next', group = 'tag'}),
   awful.key({modkey}, 'Escape', awful.tag.history.restore, {description = 'go back', group = 'tag'}),
   -- Default client focus
   awful.key(
-    {modkey},
-    'd',
+    {altkey},
+    'Tab',
     function()
       awful.client.focus.byidx(1)
     end,
@@ -41,14 +43,46 @@ local globalKeys =
     end,
     {description = 'focus previous by index', group = 'client'}
   ),
+  -- Navigate between clients
   awful.key(
-    {modkey},
-    'e',
+    {altkey},
+    'Up',
+    function() awful.client.focus.bydirection('up') end,
+    {description = 'focus above client'}
+  ),
+  awful.key(
+    {altkey},
+    'Down',
+    function() awful.client.focus.bydirection('down') end,
+    {description = 'focus below client'}
+  ),
+  awful.key(
+    {altkey},
+    'Left',
+    function() awful.client.focus.bydirection('left') end,
+    {description = 'focus left client'}
+  ),
+  awful.key(
+    {altkey},
+    'Right',
+    function() awful.client.focus.bydirection('right') end,
+    {description = 'focus right client'}
+  ),
+  awful.key(
+    {altkey},
+    'r',
     function()
       screen.primary.left_panel:toggle(true)
-      --awful.spawn(apps.rofi)
     end,
     {description = 'show main menu', group = 'awesome'}
+  ),
+  awful.key(
+    {altkey},
+    't',
+    function()
+      screen.primary.left_panel:toggle(false)
+    end,
+    {description = 'show left panel', group = 'awesome'}
   ),
   awful.key({modkey}, 'u', awful.client.urgent.jumpto, {description = 'jump to urgent client', group = 'client'}),
   awful.key(
@@ -80,11 +114,26 @@ local globalKeys =
   -- Standard program
   awful.key(
     {modkey},
-    'x',
+    'Return',
     function()
       awful.spawn(apps.terminal)
     end,
     {description = 'open a terminal', group = 'launcher'}
+  ),
+  -- Default program
+  awful.key(
+    {altkey},
+    'Return',
+    function()
+      awful.spawn(
+        awful.screen.focused().selected_tag.defaultApp,
+        {
+          tag = _G.mouse.screen.selected_tag,
+          placement = awful.placement.bottom_right
+        }
+      )
+    end,
+    {description = 'open default app', group = 'launcher'}
   ),
   awful.key({modkey, 'Control'}, 'r', _G.awesome.restart, {description = 'reload awesome', group = 'awesome'}),
   awful.key({modkey, 'Control'}, 'q', _G.awesome.quit, {description = 'quit awesome', group = 'awesome'}),
@@ -170,7 +219,8 @@ local globalKeys =
     {modkey},
     '`',
     function()
-      awful.spawn('tdrop -a alacritty')
+      -- awful.spawn('tdrop -a gnome-terminal')
+      quakeconsole[mouse.screen]:toggle()
     end,
     {description = 'dropdown application', group = 'launcher'}
   ),
@@ -266,10 +316,10 @@ local globalKeys =
 -- Bind all key numbers to tags.
 -- Be careful: we use keycodes to make it works on any keyboard layout.
 -- This should map on the top row of your keyboard, usually 1 to 9.
-for i = 1, 9 do
+for i = 0, 10 do
   -- Hack to only show tags 1 and 9 in the shortcut window (mod+s)
   local descr_view, descr_toggle, descr_move, descr_toggle_focus
-  if i == 1 or i == 9 then
+  if i == 1 or i == 10 then
     descr_view = {description = 'view tag #', group = 'tag'}
     descr_toggle = {description = 'toggle tag #', group = 'tag'}
     descr_move = {description = 'move focused client to tag #', group = 'tag'}

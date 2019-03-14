@@ -1,5 +1,6 @@
 local filesystem = require('gears.filesystem')
 local mat_colors = require('theme.mat-colors')
+local gears = require('gears')
 local theme_dir = filesystem.get_configuration_dir() .. '/theme'
 
 local theme = {}
@@ -22,6 +23,78 @@ theme.background.hue_900 = '#121e25'
 
 local awesome_overrides =
   function(theme)
+    theme.dark = '#0C1015'
+    theme.medium = '#676a6d'
+    theme.medium_dark = '#474a4d'
+    theme.light = '#e1e1e1'
+    theme.selected = '#8FBFCF'
+    theme.urgent = '#E2C08D'
+
+    theme.wallpaper = os.getenv("HOME") .. '/Pictures/code.png'
+
+    theme.font = 'Product Sans Bold'
+    theme.font_reg = 'Product Sans Regular'
+    theme.title_font = theme.font .. ' 14'
+    theme.tooltip_font = theme.font .. ' 10'
+
+    -- Left Panel
+    theme.left_panel_width = 24
+    theme.bg_systray = theme.dark
+
+    -- TagList
+    theme.taglist_font = theme.font .. ' 10'
+    theme.taglist_bg_empty = theme.dark
+    theme.taglist_bg_occupied =
+      'linear:24,0:0,0:0,' ..
+      theme.medium .. ':0.07,' .. theme.medium .. ':0.07,' ..
+      theme.dark .. ':1,' .. theme.dark
+    theme.taglist_bg_urgent = 'png:' .. theme.icons .. 'tag-list/urgent.png'
+    theme.taglist_bg_focus = 
+      'linear:24,0:0,0:0,' ..
+      theme.selected .. ':0.07,' .. theme.selected .. ':0.07,' ..
+      theme.dark .. ':1,' .. theme.dark
+
+    -- Spotify Widget
+    theme.spotify_border = '#73c991'
+    theme.spotify_fg = theme.light
+    theme.spotify_bg = 
+      'linear:0,0:0,24:0,' ..
+      theme.spotify_border .. ':0.07,' .. theme.spotify_border .. ':0.07,' ..
+      theme.dark .. ':1,' .. theme.dark
+    theme.spotify_font = theme.font .. ' 10'
+    theme.spotify_play_icon = theme.icons .. '/play.svg'
+    theme.spotify_pause_icon = theme.icons .. '/pause.svg'
+
+    -- Tasklist
+    theme.tasklist_font = theme.font .. ' 10'
+    theme.tasklist_bg_normal = theme.dark
+    theme.tasklist_bg_focus = 
+      'linear:0,0:0,24:0,' ..
+      theme.selected .. ':0.07,' .. theme.selected .. ':0.07,' ..
+      theme.dark .. ':1,' .. theme.dark
+    theme.tasklist_bg_urgent = 
+      'linear:0,0:0,24:0,' ..
+      theme.urgent .. ':0.07,' .. theme.urgent .. ':0.07,' ..
+      theme.dark .. ':1,' .. theme.dark
+    theme.tasklist_fg_urgent = theme.fg_normal
+    theme.tasklist_fg_normal = '#999999'
+    theme.tasklist_fg_focus = '#ffffff'
+
+    -- Layour
+    theme.layout_max = theme.icons .. '/layouts/max.png'
+    theme.layout_tile = theme.icons .. '/layouts/tile.png'
+    theme.layout_tilebottom = theme.icons .. '/layouts/tile-bottom.png'
+
+    -- Exit Screen
+    theme.exit_screen_icon_size = 80
+
+    -- Borders
+
+    theme.border_width = 1
+    theme.border_normal = '#2c4e67'
+    theme.border_focus = theme.selected
+    theme.border_marked = theme.urgent
+
   --[[   theme.dir = os.getenv('HOME') .. '/.config/awesome/theme'
   --theme.dir             = os.getenv("HOME") .. "/code/awesome-pro/themes/pro-dark"
 

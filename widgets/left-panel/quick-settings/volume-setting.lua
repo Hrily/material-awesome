@@ -36,6 +36,10 @@ local icon =
 }
 
 local button = mat_icon_button(icon)
+button.top = 12
+button.bottom = 12
+button.left = 12
+button.right = 12
 
 local volume_setting =
   wibox.widget {

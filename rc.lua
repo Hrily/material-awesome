@@ -2,6 +2,7 @@ local gears = require('gears')
 local awful = require('awful')
 require('awful.autofocus')
 local beautiful = require('beautiful')
+-- local quake = require('quake')
 
 -- Theme
 beautiful.init(require('theme'))
@@ -23,9 +24,18 @@ _G.root.keys(require('conf.keys.global'))
 awful.screen.connect_for_each_screen(
   function(s)
     -- If wallpaper is a function, call it with the screen
-    gears.wallpaper.set(beautiful.wallpaper, 1, true)
+    collectgarbage("collect")
+    gears.wallpaper.fit(beautiful.wallpaper, s, beautiful.dark)
   end
 )
+
+-- Create quake terminals
+quakeconsole = {}
+-- for s = 1, screen.count() do
+--    quakeconsole[s] = quake({ terminal = config.terminal,
+-- 			     height = 0.3,
+-- 			     screen = s })
+-- end
 
 -- Signal function to execute when a new client appears.
 _G.client.connect_signal(

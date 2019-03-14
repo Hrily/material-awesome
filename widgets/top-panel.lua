@@ -78,38 +78,42 @@ local TopPanel =
     {
       ontop = true,
       screen = s,
-      height = 48,
-      width = s.geometry.width - offsetx,
+      height = s.geometry.height,
+      width = beautiful.left_panel_width,
       x = s.geometry.x + offsetx,
       y = s.geometry.y,
       stretch = false,
-      bg = beautiful.background.hue_800,
+      bg = beautiful.dark,
       fg = beautiful.fg_normal,
       struts = {
-        top = 48
+        left = 24
       }
     }
   )
 
   panel:struts(
     {
-      top = 48
+      left = 24
     }
   )
 
   panel:setup {
-    layout = wibox.layout.align.horizontal,
+    layout = wibox.layout.align.vertical,
     {
-      layout = wibox.layout.fixed.horizontal,
+      layout = wibox.layout.fixed.vertical,
       -- Create a taglist widget
-      TaskList(s),
+      wibox.container {
+          TaskList(s),
+          direction = 'east',
+          widget    = wibox.container.rotate
+      },
       add_button
     },
     nil,
     {
       layout = wibox.layout.fixed.horizontal,
       -- Layout box
-      LayoutBox(s)
+      wibox.container.margin(LayoutBox(s), 5, 5, 5, 5)
     }
   }
   print('jan')

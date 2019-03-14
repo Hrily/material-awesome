@@ -1,7 +1,7 @@
 local dir = os.getenv('HOME') .. '/.config/awesome/theme/icons'
 
 return {
-  menu = dir .. '/menu.svg',
+  menu = dir .. '/menu-blue.svg',
   close = dir .. '/close.svg',
   logout = dir .. '/logout.svg',
   sleep = dir .. '/power-sleep.svg',
@@ -15,5 +15,8 @@ return {
   memory = dir .. '/memory.svg',
   harddisk = dir .. '/harddisk.svg',
   thermometer = dir .. '/thermometer.svg',
-  plus = dir .. '/plus.svg'
+  plus = dir .. '/plus.svg',
+  wifi = dir .. '/wifi.svg',
+  eth = dir .. '/eth.svg',
+  date = dir .. '/date.svg',
 }

@@ -41,14 +41,14 @@ end
 
 function suspend_command()
   exit_screen_hide()
-  awful.spawn.with_shell('i3lock-fancy-rapid 5 3 -k --timecolor=ffffffff --datecolor=ffffffff & systemctl suspend')
+  awful.spawn.with_shell('dm-tool lock & systemctl suspend')
 end
 function exit_command()
   awesome.quit()
 end
 function lock_command()
+  awful.spawn.with_shell('dm-tool lock')
   exit_screen_hide()
-  awful.spawn.with_shell('sleep 1 && i3lock-fancy-rapid 5 3 -k --timecolor=ffffffff --datecolor=ffffffff')
 end
 function poweroff_command()
   awful.spawn.with_shell('poweroff')
@@ -115,8 +115,14 @@ exit_screen =
     width = screen_geometry.width
   }
 )
+exit_screen:connect_signal(
+  'button::release',
+  function()
+    exit_screen_hide()
+  end    
+)
 
-exit_screen.bg = beautiful.background.hue_800 .. 'dd'
+exit_screen.bg = beautiful.dark .. '99'
 exit_screen.fg = beautiful.exit_screen_fg or beautiful.wibar_fg or '#FEFEFE'
 
 local exit_screen_grabber

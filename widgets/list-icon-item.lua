@@ -2,6 +2,7 @@ local wibox = require('wibox')
 local naughty = require('naughty')
 local debug = require('gears.debug')
 local awful = require('awful')
+local beautiful = require('beautiful')
 local clickable_container = require('widgets.clickable-container')
 
 function build(args)
@@ -34,15 +35,15 @@ function build(args)
           image = args.icon,
           widget = wibox.widget.imagebox
         },
-        left = 16,
-        right = 32,
+        left = 26,
+        right = 20,
         top = 12,
         bottom = 12,
         layout = wibox.container.margin
       },
       wibox.widget {
         text = args.text,
-        font = 'Roboto medium 13',
+        font = beautiful.font .. ' 12',
         widget = wibox.widget.textbox
       },
       layout = wibox.layout.align.horizontal

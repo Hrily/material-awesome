@@ -1,4 +1,5 @@
 local awful = require('awful')
+local wibox = require('wibox')
 local iconPath = os.getenv('HOME') .. '/.config/awesome/theme/icons/tag-list/tag/'
 local gears = require('gears')
 
@@ -6,7 +7,7 @@ local tags = {
     {
         icon = 'google-chrome.png',
         type = 'chrome',
-        defaultApp = 'google-chrome-beta',
+        defaultApp = 'firefox',
         screen = 1
     },
     {
@@ -16,39 +17,53 @@ local tags = {
         screen = 1
     },
     {
-        icon = 'forum.png',
-        type = 'social',
-        defaultApp = 'station',
-        screen = 1
-    },
-    {
         icon = 'folder.png',
         type = 'files',
         defaultApp = 'nautilus',
         screen = 1
     },
     {
+        icon = 'terminal.svg',
+        type = 'files',
+        defaultApp = 'gnome-terminal',
+        screen = 1
+    },
+    {
+        -- 5
+        type = 'any',
+        screen = 1
+    },
+    {
+        -- 6
+        type = 'any',
+        screen = 1
+    },
+    {
+        -- 7
+        type = 'any',
+        screen = 1
+    },
+    {
+        -- 8
+        type = 'any',
+        screen = 1
+    },
+    {
+        -- 9
+        type = 'any',
+        screen = 1
+    },
+    {
         icon = 'music.png',
         type = 'music',
-        defaultApp = 'youtube-music',
-        screen = 1
-    },
-    {
-        icon = 'google-controller.png',
-        type = 'game',
-        defaultApp = '',
-        screen = 1
-    },
-    {
-        icon = 'flask.png',
-        type = 'any',
-        defaultApp = '',
+        defaultApp = 'spotify',
         screen = 1
     }
 }
 
 awful.layout.layouts = {
-    awful.layout.suit.tile,
+    awful.layout.suit.tile.right,
+    awful.layout.suit.tile.bottom,
     awful.layout.suit.max
 }
 
@@ -59,9 +74,9 @@ awful.screen.connect_for_each_screen(
                 awful.tag.add(
                 i,
                 {
-                    icon = iconPath .. tag.icon,
-                    icon_only = true,
-                    layout = awful.layout.suit.tile,
+                    icon = tag.icon and iconPath .. tag.icon or false,
+                    text = tag.text,
+                    layout = awful.layout.suit.tile.right,
                     gap_single_client = false,
                     gap = 4,
                     screen = s,

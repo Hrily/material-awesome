@@ -9,19 +9,19 @@ function build(imagebox, args)
         wibox.widget {
             wibox.widget {
               imagebox,
-              top = 6,
-              left = 6,
-              right = 6,
-              bottom = 6,
+              top = 0,
+              left = 0,
+              right = 0,
+              bottom = 0,
               widget = wibox.container.margin
             },
             shape = gears.shape.circle,
             widget = clickable_container
         },
-        top = 6,
-        left = 6,
-        right = 6,
-        bottom = 6,
+        top = 2,
+        left = 2,
+        right = 2,
+        bottom = 2,
         widget = wibox.container.margin
     }
 end

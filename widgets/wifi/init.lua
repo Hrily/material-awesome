@@ -34,7 +34,7 @@ local widget =
     layout = wibox.layout.align.horizontal
 }
 
-local widget_button = clickable_container(wibox.container.margin(widget, 14, 14, 4, 4))
+local widget_button = clickable_container(wibox.container.margin(widget, 4, 4, 4, 4))
 widget_button:buttons(
     gears.table.join(
         awful.button(
@@ -62,8 +62,8 @@ local widget_popup =
             end
         end,
         preferred_positions = {'right', 'left', 'top', 'bottom'},
-        margin_leftright = 8,
-        margin_topbottom = 8
+        margin_leftright = 4,
+        margin_topbottom = 4
     }
 )
 

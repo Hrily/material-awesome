@@ -82,8 +82,8 @@ local function new(args)
     forced_height = 6,
     paddings = 0,
     shape = gears.shape.rounded_rect,
-    background_color = beautiful.background.hue_800,
-    color = beautiful.primary.hue_500,
+    background_color = beautiful.medium_dark,
+    color = beautiful.selected,
     widget = wibox.widget.progressbar
   }
 
@@ -92,8 +92,8 @@ local function new(args)
     forced_height = 8,
     bar_shape = gears.shape.rounded_rect,
     bar_height = 0,
-    bar_color = beautiful.primary.hue_500,
-    handle_color = beautiful.primary.hue_300,
+    bar_color = beautiful.selected,
+    handle_color = beautiful.selected,
     handle_shape = gears.shape.circle,
     handle_border_color = '#00000012',
     handle_border_width = 3,

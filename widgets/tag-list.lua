@@ -1,9 +1,12 @@
 local awful = require('awful')
 local wibox = require('wibox')
+local beautiful = require('beautiful')
 local dpi = require('beautiful').xresources.apply_dpi
 local capi = {button = _G.button}
 local clickable_container = require('widgets.clickable-container')
 local modkey = require('conf.keys.mod').modKey
+local naughty = require('naughty')
+
 --- Common method to create buttons.
 -- @tab buttons
 -- @param object
@@ -50,17 +53,24 @@ local function list_update(w, buttons, label, data, objects)
             ibm = cache.ibm
         else
             ib = wibox.widget.imagebox()
-            tb = wibox.widget.textbox()
+            tb = wibox.widget{
+                align  = 'center',
+                valign = 'center',
+                font = beautiful.taglist_font,
+                forced_height = 24,
+                forced_width = 24,
+                widget = wibox.widget.textbox
+            }
             bgb = wibox.container.background()
-            tbm = wibox.container.margin(tb, dpi(4), dpi(16))
-            ibm = wibox.container.margin(ib, dpi(12), dpi(12), dpi(12), dpi(12))
+            tbm = wibox.container.margin(tb, dpi(4), dpi(4))
+            ibm = wibox.container.margin(ib, dpi(4), dpi(4), dpi(4), dpi(4))
             l = wibox.layout.fixed.horizontal()
             bg_clickable = clickable_container()
 
             -- All of this is added in a fixed widget
             l:fill_space(true)
             l:add(ibm)
-            -- l:add(tbm)
+            l:add(tbm)
             bg_clickable:set_widget(l)
 
             -- And all of this gets a background
@@ -94,10 +104,10 @@ local function list_update(w, buttons, label, data, objects)
             bg_image = bg_image(tb, o, nil, objects, i)
         end
         bgb:set_bgimage(bg_image)
-        if icon then
-            ib.image = icon
-        else
+        if icon == nil then
             ibm:set_margins(0)
+        else
+            ib.image = icon
         end
 
         bgb.shape = args.shape
@@ -108,10 +118,35 @@ local function list_update(w, buttons, label, data, objects)
     end
 end
 
+function view_nonempty_tag (offset)
+    local tags = awful.screen.focused().tags
+    local t = awful.screen.focused().selected_tag
+    local i = (t.index - 1 + offset + #tags) % #tags
+    -- naughty.notify({text = tostring(#tags)})
+    -- naughty.notify({text = tostring(t.index)})
+    while i ~= t.index - 1 do
+        if #(tags[i + 1]:clients()) > 0 then
+            break
+        end
+        i = (i + offset + #tags) % #tags
+    end
+    tags[i + 1]:view_only()
+end
+
+
+
+function viewnext_nonempty_tag (screen)
+    view_nonempty_tag(1)
+end
+
+function viewprev_nonempty_tag (screen)
+    view_nonempty_tag(-1)
+end
+
 local TagList = function(s)
     return awful.widget.taglist(
         s,
-        awful.widget.taglist.filter.all,
+        awful.widget.taglist.filter.noempty,
         awful.util.table.join(
             awful.button(
                 {},
@@ -144,14 +179,14 @@ local TagList = function(s)
                 {},
                 4,
                 function(t)
-                    awful.tag.viewprev(t.screen)
+                    viewprev_nonempty_tag(t.screen)
                 end
             ),
             awful.button(
                 {},
                 5,
                 function(t)
-                    awful.tag.viewnext(t.screen)
+                    viewnext_nonempty_tag(t.screen)
                 end
             )
         ),

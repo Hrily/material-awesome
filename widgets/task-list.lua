@@ -4,6 +4,16 @@ local dpi = require('beautiful').xresources.apply_dpi
 local capi = {button = _G.button}
 local gears = require('gears')
 local clickable_container = require('widgets.clickable-container')
+
+local function ReverseTable(t)
+    local reversedTable = {}
+    local itemCount = #t
+    for k, v in ipairs(t) do
+        reversedTable[itemCount + 1 - k] = v
+    end
+    return reversedTable
+end
+
 --- Common method to create buttons.
 -- @tab buttons
 -- @param object
@@ -39,7 +49,7 @@ end
 local function list_update(w, buttons, label, data, objects)
     -- update the widgets, creating them if needed
     w:reset()
-    for i, o in ipairs(objects) do
+    for i, o in ipairs(ReverseTable(objects)) do
         local cache = data[o]
         local ib, cb, tb, cbm, bgb, tbm, ibm, l, ll
         if cache then
@@ -55,14 +65,14 @@ local function list_update(w, buttons, label, data, objects)
                 clickable_container(
                 wibox.container.margin(
                     wibox.widget.imagebox(os.getenv('HOME') .. '/.config/awesome/theme/icons/tag-list/tag/close.png'),
-                    4,
-                    4,
-                    4,
-                    4
+                    0,
+                    0,
+                    0,
+                    0
                 )
             )
             cb.shape = gears.shape.circle
-            cbm = wibox.container.margin(cb, dpi(4), dpi(8), dpi(12), dpi(12))
+            cbm = wibox.container.margin(cb, dpi(2), dpi(4), dpi(4), dpi(4))
             cbm:buttons(
                 gears.table.join(
                     awful.button(
@@ -78,7 +88,7 @@ local function list_update(w, buttons, label, data, objects)
             bg_clickable = clickable_container()
             bgb = wibox.container.background()
             tbm = wibox.container.margin(tb, dpi(4), dpi(4))
-            ibm = wibox.container.margin(ib, dpi(12), dpi(12), dpi(12), dpi(12))
+            ibm = wibox.container.margin(ib, dpi(4), dpi(4), dpi(4), dpi(4))
             l = wibox.layout.fixed.horizontal()
             ll = wibox.layout.fixed.horizontal()
 

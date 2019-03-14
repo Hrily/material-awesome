@@ -6,8 +6,29 @@ local gears = require('gears')
 local apps = require('conf.apps')
 local list_icon_item = require('widgets.list-icon-item')
 -- Clock / Calendar
-local textclock = wibox.widget.textclock('<span font="Roboto Mono bold 11">%H\n%M</span>')
-local clock_widget = wibox.container.margin(textclock, 13, 13, 8, 8)
+local clock_hour = wibox.widget.textclock('<span font="Product Sans Bold 8">%H</span>')
+local clock_min = wibox.widget.textclock('<span font="Product Sans Bold 8">%M</span>')
+local clock_widget = {
+  layout = wibox.layout.align.vertical(middle),
+  forced_width = beautiful.left_panel_width,
+  nil,
+  {
+    layout = wibox.layout.align.horizontal(middle),
+    forced_width = beautiful.left_panel_width,
+    expand = "outside",
+    nil,
+    wibox.container.margin(clock_hour, 4, 4, 12, 1),
+    nil
+  },
+  {
+    layout = wibox.layout.align.horizontal(middle),
+    forced_width = beautiful.left_panel_width,
+    expand = "outside",
+    nil,
+    wibox.container.margin(clock_min, 4, 4, 1, 12),
+    nil
+  },
+}
 local systray = wibox.widget.systray()
 systray:set_horizontal(false)
 local clickable_container = require('widgets.clickable-container')
@@ -24,15 +45,15 @@ local home_button =
   wibox.widget {
     wibox.widget {
       menu_icon,
-      top = 12,
-      left = 12,
-      right = 12,
-      bottom = 12,
+      top = 4,
+      left = 4,
+      right = 4,
+      bottom = 4,
       widget = wibox.container.margin
     },
     widget = clickable_container
   },
-  bg = beautiful.primary.hue_500,
+  bg = beautiful.dark,
   widget = wibox.container.background
 }
 
@@ -41,20 +62,22 @@ local LeftPanel =
   local panel =
     wibox {
     screen = s,
-    width = 448,
+    width = 424,
     height = s.geometry.height,
-    x = s.geometry.x + 48 - 448,
+    -- x = s.geometry.x + beautiful.left_panel_width - 424,
+    x = s.geometry.width - beautiful.left_panel_width,
     y = s.geometry.y,
     ontop = true,
-    bg = beautiful.background.hue_800,
-    fg = beautiful.fg_normal
+    bg = beautiful.dark,
+    fg = beautiful.light
   }
 
   panel.opened = false
 
   panel:struts(
     {
-      left = 48
+      left = beautiful.left_panel_width,
+      right = beautiful.left_panel_width
     }
   )
 
@@ -88,7 +111,7 @@ local LeftPanel =
   end
 
   local openPanel = function(should_run_rofi)
-    panel.x = 0
+    panel.x = panel.x - 400
     menu_icon.image = icons.close
     backdrop.visible = true
     panel.visible = false
@@ -100,7 +123,7 @@ local LeftPanel =
 
   local closePanel = function()
     menu_icon.image = icons.menu
-    panel.x = 48 - 448
+    panel.x = panel.x + 400
     backdrop.visible = false
   end
 
@@ -141,6 +164,35 @@ local LeftPanel =
 
   panel:setup {
     layout = wibox.layout.align.horizontal,
+        {
+      layout = wibox.layout.align.vertical,
+      forced_width = beautiful.left_panel_width,
+      {
+        -- Left widgets
+        layout = wibox.layout.fixed.vertical,
+        home_button,
+        -- Create a taglist widget
+        TagList(s)
+      },
+      --s.mytasklist, -- Middle widget
+      nil,
+      {
+        -- Right widgets
+        layout = wibox.layout.fixed.vertical,
+        wibox.container {
+          require('widgets.spotify'),
+          direction = 'west',
+          widget    = wibox.container.rotate
+        },
+        wibox.container.margin(wibox.widget {}, 8, 8, 24, 24),
+        require('widgets.package-updater'),
+        wibox.container.margin(systray, 4, 4, 4, 4),
+        require('widgets.wifi'),
+        require('widgets.battery'),
+        -- Clock
+        clock_widget
+      }
+    },
     nil,
     {
       {
@@ -157,7 +209,7 @@ local LeftPanel =
                 end
               }
             ),
-            bg = beautiful.background.hue_800,
+            bg = beautiful.medium,
             widget = wibox.container.background
           },
           wibox.widget {
@@ -167,7 +219,8 @@ local LeftPanel =
             widget = wibox.widget.separator
           },
           require('widgets.left-panel.quick-settings'),
-          require('widgets.left-panel.hardware-monitor')
+          require('widgets.left-panel.hardware-monitor'),
+          require('widgets.left-panel.info')
         },
         nil,
         {
@@ -184,36 +237,13 @@ local LeftPanel =
                 end
               }
             ),
-            bg = beautiful.background.hue_800,
+            bg = beautiful.dark,
             widget = wibox.container.background
           }
         }
       },
-      bg = beautiful.background.hue_900,
+      bg = beautiful.dark,
       widget = wibox.container.background
-    },
-    {
-      layout = wibox.layout.align.vertical,
-      forced_width = 48,
-      {
-        -- Left widgets
-        layout = wibox.layout.fixed.vertical,
-        home_button,
-        -- Create a taglist widget
-        TagList(s)
-      },
-      --s.mytasklist, -- Middle widget
-      nil,
-      {
-        -- Right widgets
-        layout = wibox.layout.fixed.vertical,
-        wibox.container.margin(systray, 10, 10),
-        require('widgets.package-updater'),
-        require('widgets.wifi'),
-        require('widgets.battery'),
-        -- Clock
-        clock_widget
-      }
     }
   }
 

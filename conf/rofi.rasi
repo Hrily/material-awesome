@@ -11,7 +11,7 @@ configuration {
 }
 
 * {
-	background-color:            rgb(18, 30, 37);
+	background-color:            #070a0d;
 	text-color:                  #d3d7cf;
 	selbg:                       rgb(0, 86, 136);
 	actbg:                       rgb(22, 37, 46);
@@ -39,12 +39,12 @@ configuration {
 	hide-scrollbar:              "true";
 	margin:                      0px;
 	padding:                     0px;
-	font:            "Roboto medium 10";
+	font:            "Product Sans Bold 10";
 }
 
 window {
-	location:	 west;
-	anchor:		 west;
+	location:	 east;
+	anchor:		 east;
 	x-offset: 0px;
 	height:		 100%;
 	width:		 400px;
@@ -95,7 +95,7 @@ entry {
 	background-color: rgb(25, 41, 51);
 	vertical-align: 1;
 	padding:        12px;
-	font:            "Roboto medium 13";
+	font:            "Product Sans Bold 13";
 }
 
 element normal.normal {
