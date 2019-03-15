@@ -1,10 +1,20 @@
+-------------------------------------------------
+-- Spotify Widget for Awesome Window Manager
+-- Shows currently playing song on Spotify for Linux client
+-- More details could be found here:
+-- https://github.com/streetturtle/awesome-wm-widgets/tree/master/spotify-widget
+
+-- @author Pavel Makhov
+-- @copyright 2018 Pavel Makhov
+-------------------------------------------------
+
 local awful = require("awful")
 local beautiful = require('beautiful')
 local wibox = require("wibox")
 local watch = require("awful.widget.watch")
 local naughty = require("naughty")
 
-local GET_STATUS = "/usr/bin/python " .. os.getenv("HOME") .. "/bin/spotify_status.py -p '0,1' -f '{play_pause} {song} - {artist}'"
+local GET_STATUS = "/usr/bin/python " .. os.getenv("HOME") .. "/.config/awesome/scripts/spotify_status.py -p '0,1' -f '{play_pause} {song} - {artist}'"
 
 local PLAY_PAUSE = "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause"
 local NEXT = "dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.Next"

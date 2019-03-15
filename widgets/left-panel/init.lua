@@ -6,8 +6,8 @@ local gears = require('gears')
 local apps = require('conf.apps')
 local list_icon_item = require('widgets.list-icon-item')
 -- Clock / Calendar
-local clock_hour = wibox.widget.textclock('<span font="Product Sans Bold 8">%H</span>')
-local clock_min = wibox.widget.textclock('<span font="Product Sans Bold 8">%M</span>')
+local clock_hour = wibox.widget.textclock('<span font="' .. beautiful.font .. ' 8">%H</span>')
+local clock_min = wibox.widget.textclock('<span font="' .. beautiful.font .. ' 8">%M</span>')
 local clock_widget = {
   layout = wibox.layout.align.vertical(middle),
   forced_width = beautiful.left_panel_width,
@@ -85,8 +85,8 @@ local LeftPanel =
     wibox {
     ontop = true,
     screen = s,
-    bg = '#00000000',
-    type = 'dock',
+    bg = beautiful.dark .. '99',
+    type = 'splash',
     x = s.geometry.x,
     y = s.geometry.y,
     width = s.geometry.width,

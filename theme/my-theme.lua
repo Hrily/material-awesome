@@ -32,8 +32,8 @@ local awesome_overrides =
 
     theme.wallpaper = os.getenv("HOME") .. '/Pictures/code.png'
 
-    theme.font = 'Product Sans Bold'
-    theme.font_reg = 'Product Sans Regular'
+    theme.font = 'Karla Bold'
+    theme.font_reg = 'Karla Regular'
     theme.title_font = theme.font .. ' 14'
     theme.tooltip_font = theme.font .. ' 10'
 
@@ -44,10 +44,11 @@ local awesome_overrides =
     -- TagList
     theme.taglist_font = theme.font .. ' 10'
     theme.taglist_bg_empty = theme.dark
-    theme.taglist_bg_occupied =
-      'linear:24,0:0,0:0,' ..
-      theme.medium .. ':0.07,' .. theme.medium .. ':0.07,' ..
-      theme.dark .. ':1,' .. theme.dark
+    theme.taglist_bg_occupied = theme.dark
+    -- theme.taglist_bg_occupied =
+    --   'linear:24,0:0,0:0,' ..
+    --   theme.medium .. ':0.07,' .. theme.medium .. ':0.07,' ..
+    --   theme.dark .. ':1,' .. theme.dark
     theme.taglist_bg_urgent = 'png:' .. theme.icons .. 'tag-list/urgent.png'
     theme.taglist_bg_focus = 
       'linear:24,0:0,0:0,' ..

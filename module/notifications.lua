@@ -7,15 +7,16 @@ naughty.config.spacing = 8
 
 naughty.config.defaults.timeout = 5
 naughty.config.defaults.screen = 1
-naughty.config.defaults.position = 'bottom_left'
+naughty.config.defaults.position = 'bottom_right'
 naughty.config.defaults.margin = 16
 naughty.config.defaults.ontop = true
-naughty.config.defaults.font = 'Roboto Regular 10'
+naughty.config.defaults.font = beautiful.font .. ' 10'
 naughty.config.defaults.icon = nil
 naughty.config.defaults.icon_size = 32
 naughty.config.defaults.shape = gears.shape.rounded_rect
 naughty.config.defaults.border_width = 0
 naughty.config.defaults.hover_timeout = nil
+beautiful.notification_bg = beautiful.dark
 
 -- Error handling
 if _G.awesome.startup_errors then

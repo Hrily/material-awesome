@@ -1,28 +1,26 @@
-# Material and Mouse driven theme for [AwesomeWM 4.3](https://awesomewm.org/) 
+# My ricing for AwesomeWm 4.2
 
-### An almost desktop environment made with [AwesomeWM](https://awesomewm.org/) following the [Material Design guidelines](https://material.io) with a performant opiniated mouse/keyboard workflow to increase daily productivity and comfort.
-[![](https://github.com/PapyElGringo/material-awesome/blob/master/screenshots/material-demo.gif?raw=true)](https://www.reddit.com/r/unixporn/comments/anp51q/awesome_material_awesome_workflow/)
+Based on Nord color scheme
 
-| Tiled         | Panel         | Exit screen   |
-|:-------------:|:-------------:|:-------------:|
-|![](https://github.com/PapyElGringo/material-awesome/blob/master/screenshots/tiled.png?raw=true)|![](https://github.com/PapyElGringo/material-awesome/blob/master/screenshots/panel-open.png?raw=true)|![](https://github.com/PapyElGringo/material-awesome/blob/master/screenshots/exit.png?raw=true)|
+
+| Editor        | Terminal      |
+|:-------------:|:-------------:|
+|![](screenshots/awesome-wm-code.png)|![](screenshots/awesome-wm-terminal.png)|
+
+| Rofi          | Panel         |
+|:-------------:|:-------------:|
+|![](screenshots/awesome-wm-rofi.png)|![](screenshots/awesome-wm-left-panel.png)|
 
 ## Requirements
 - [AwesomeWM](https://awesomewm.org/) as the window manager
-- [Roboto](https://fonts.google.com/specimen/Roboto) as the **font**
+- [Karla](https://fonts.google.com/specimen/Karla) and [CMU Typewriter](https://fontlibrary.org/en/font/cmu-typewriter) as the **fonts**
 - [Rofi](https://github.com/DaveDavenport/rofi) for the app launcher
 - [Compton fork](https://github.com/tryone144/compton) for the compositor (blur and animations)
-- (Optional) [Materia](https://github.com/nana-4/materia-theme) as GTK theme
-- (Optional) [Papirus Dark](https://github.com/PapirusDevelopmentTeam/papirus-icon-theme) as icon theme
+- (Optional) [OSX-Arc-Darker]([https://github.com/nana-4/materia-theme](https://aur.archlinux.org/packages/osx-arc-darker/)) as GTK theme
+- (Optional) [Numix-Circle](https://github.com/numixproject/numix-icon-theme-circle) as icon theme
 
 ## Installation
 
 ```
-git clone https://github.com/PapyElGringo/material-awesome.git ~/.config/awesome
-```
-
-> Awesome 4.3 is so new that most of the distribution didn't updated yet. If you want to install this config on Awesome 4.2 (current version on depo) use the specific awesome-4.2 branch
-
-```
-git clone -b awesome-4.2 https://github.com/PapyElGringo/material-awesome.git ~/.config/awesome
+git clone https://github.com/Hrily/material-awesome.git ~/.config/awesome
 ```

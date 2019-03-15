@@ -1,6 +1,7 @@
 local awful = require('awful')
 require('awful.autofocus')
 local beautiful = require('beautiful')
+local naughty = require('naughty')
 local hotkeys_popup = require('awful.hotkeys_popup').widget
 
 local modkey = require('conf.keys.mod').modKey
@@ -105,10 +106,19 @@ local globalKeys =
     end
   ),
   awful.key(
+    {modkey},
+    'Print',
+    function()
+      awful.util.spawn_with_shell('scrot -e \'mv $f ~/Pictures/\'')
+      naughty.notify({ text = "Screenshot saved"})
+    end
+  ),
+    awful.key(
     {},
     'Print',
     function()
-      awful.util.spawn_with_shell('maim -s | xclip -selection clipboard -t image/png')
+      awful.util.spawn_with_shell('maim -s | xclip -sel clipboard -t image/png')
+      naughty.notify({ text = "Screenshot copied to clipboard"})
     end
   ),
   -- Standard program

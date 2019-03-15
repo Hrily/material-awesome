@@ -39,7 +39,7 @@ configuration {
 	hide-scrollbar:              "true";
 	margin:                      0px;
 	padding:                     0px;
-	font:            "Product Sans Bold 10";
+	font:            "Karla Bold 10";
 }
 
 window {
@@ -92,10 +92,10 @@ element {
 entry {
 	expand:         true;
 	text-color:     @normal-foreground;
-	background-color: rgb(25, 41, 51);
+	background-color: #676a6d;
 	vertical-align: 1;
-	padding:        12px;
-	font:            "Product Sans Bold 13";
+	padding:        14px;
+	font:            "Karla Bold 13";
 }
 
 element normal.normal {
